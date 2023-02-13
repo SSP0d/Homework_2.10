@@ -1,25 +1,10 @@
 {% extends 'app_quotes/base.html' %}
 
-{% if messages %}
-<div>
-    {% for message in messages %}
-    <div {% if message.tags %} class="alert-{{ message.tags }}" {% endif %}>{{ message }}</div>
-    {% endfor %}
-</div>
-{% endif %}
-
-
-{% if form.errors %}
-    <div class="alert alert-danger" role="alert">
-        <span>{{ form.non_field_errors }}</span>
-    </div>
-{% endif %} 
-
 {% block body %}
     <div class="container">
         <div class="row">
             <div class="offset-4 col-md-4">
-                <form method="post" action="{% url 'users:login' %}">
+                <form method="POST">
                     {% csrf_token %}
                     <br>
                     <div>
@@ -31,12 +16,20 @@
 
                     <div>
                         <label> <h3>Password:</h3> </label>
-                            {{ form.password }}
-                        <span>{{ form.errors.password }}</span>
+                            {{ form.password1 }}
+                        <span>{{ form.errors.password1 }}</span>
                     </div>
                     <br>
+
+                    <div>
+                        <label> <h3>Password confirmation:</h3></label>
+                            {{ form.password2 }}
+                        <span>{{ form.errors.password2 }}</span>
+                    </div>
+                    <br>
+
                     <div class="grid d-flex justify-content-between">
-                        <button type="submit" class="btn btn-primary">Log In</button>
+                        <button type="submit" class="btn btn-primary">Sign Up</button>
                         <button type="reset" class="btn btn-secondary">Reset</button>
                     </div>
 
