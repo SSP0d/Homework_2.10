@@ -73,9 +73,9 @@ def store_in_json(filename: str, data: List[dict]):
 
 
 def parse_and_store_data():
-    quotes = get_quotes()
     urls = get_url_authors()
     authors = get_authors(urls)
+    quotes = get_quotes()
     store_in_json('authors.json', authors)
     store_in_json('quotes.json', quotes)
 
