@@ -36,10 +36,10 @@ def insert_into_db():
 
 
 def main(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         insert_into_db()
 
-    quotes = Quote.objects.all().order_by("-id")
+    quotes = Quote.objects.all().order_by('-id')
     tags = Tag.objects.all()
     topTenTags = get_top10tags()
 
@@ -55,36 +55,36 @@ def main(request):
     page = request.GET.get('page')
     quotes = paginator.get_page(page)
 
-    return render(request, "quote_site/index.html", {"quotes": quotes, "topTenTags": topTenTags})
+    return render(request, 'app_quotes/index.html', {'quotes': quotes, 'topTenTags': topTenTags})
 
 
-def author_detail(request, id):
+def about_author(request, id):
     author = Author.objects.get(pk=id)
 
-    return render(request, "quote_site/about_author.html", {"author": author})
+    return render(request, 'app_quotes/about_author.html', {'author': author})
 
 
 @login_required
 def add_author(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         form = AuthorForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('quote_site:index')
+            return redirect('app_quotes:index')
 
-        return render(request, 'quote_site/add_author.html', {'form': form})
+        return render(request, 'app_quotes/add_author.html', {'form': form})
 
-    return render(request, "quote_site/add_author.html", {'form': AuthorForm()})
+    return render(request, 'app_quotes/add_author.html', {'form': AuthorForm()})
 
 
 @login_required
 def add_quote(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         form = QuoteForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('quote_site:index')
+            return redirect('app_quotes:index')
 
-        return render(request, 'quote_site/add_quote.html', {'form': form})
+        return render(request, 'app_quotes/add_quote.html', {'form': form})
 
-    return render(request, "quote_site/add_quote.html", {'form': QuoteForm()})
+    return render(request, 'app_quotes/add_quote.html', {'form': QuoteForm()})
